@@ -1,5 +1,5 @@
 from random import randint
-n = input('Input N')
+n = input('Input N: ')
 lst = []
 k = 0
 
