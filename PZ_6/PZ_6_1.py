@@ -8,7 +8,7 @@ while type(n) != int:  # Обработка исключений
         n = int(n)
     except ValueError:
         print('Wrong input')
-        n = input()
+        n = input('Input N: ')
 
 a = [randint(0, 9) for _ in range(n)]
 

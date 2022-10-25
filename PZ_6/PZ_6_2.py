@@ -1,6 +1,15 @@
 from random import randint
-a = [randint(0, 9) for _ in range(10)]
+n = input('Input N: ')
 
-b = tuple(filter(lambda x: x % 2 == 0, a))
-print(len(b))
-print(*b)
+while type(n) != int:  # Обработка исключений
+    try:
+        n = int(n)
+    except ValueError:
+        print('Wrong input')
+        n = input('Input N: ')
+
+a = [randint(0, 9) for _ in range(n)]
+
+b = list(filter(lambda x: x % 2 == 0, a))
+print('Размер списка:', len(b))
+print('Список B -', b)
