@@ -1,5 +1,21 @@
 from random import randint
-n = int(input())
+n = input('Input N')
+lst = []
+k = 0
+
+while type(n) != int:  # Обработка исключений
+    try:
+        n = int(n)
+    except ValueError:
+        print('Wrong input')
+        n = input()
 
 a = [randint(0, 9) for _ in range(n)]
-print(*filter(lambda x: a.index(x) % 2, a))
+
+for i in a:
+    if k % 2:
+        lst.append(i)
+    k += 1
+
+print(*a)
+print(*lst)
