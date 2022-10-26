@@ -1,7 +1,3 @@
-def add_right_digit(d, k):
-    return k * 10 + d
-
-
 d1, d2, K = input('Input D1: '), input('Input D2: '), input('Input K: ')
 
 while 1:
@@ -11,6 +7,11 @@ while 1:
     except ValueError:
         print('Wrong input')
         d1, d2, K = input('Input D1: '), input('Input D2: '), input('Input K: ')
+
+
+def add_right_digit(d, k):
+    return k * 10 + d
+
 
 print(add_right_digit(d1, K))
 print(add_right_digit(d2, K))
