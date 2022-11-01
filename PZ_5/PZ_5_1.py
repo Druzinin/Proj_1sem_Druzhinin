@@ -1,4 +1,5 @@
-from random import randint
+# Составить программу, в которой функция генерирует четырехзначное число и определяет, есть ли в числе одинаковые цифры.
+from random import randint  # Импортирование библиотеки random
 
 
 def rand_digit():
@@ -13,3 +14,6 @@ def rand_digit():
         print('Есть повторяющиеся цифры.')
     else:
         print('Нет повторяющихся цифр.')
+
+
+rand_digit()
