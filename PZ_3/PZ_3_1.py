@@ -7,7 +7,7 @@ while 1:  # обработка исключений
         x, y = int(x), int(y)
         break
     except ValueError:
-        print('Wrong input')
+        print('Неправильный ввод')
         x = input('Введите число 1: ')
         y = input('Введите число 2: ')
 
