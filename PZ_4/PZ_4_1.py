@@ -1,3 +1,4 @@
+# Найти сумму 1 + 1 / 2 + 1 / 3 + 1 / N
 N = input('Input number N: ')
 
 while type(N) != int:  # обработка исключений
