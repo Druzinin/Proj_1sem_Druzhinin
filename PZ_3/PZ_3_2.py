@@ -1,13 +1,13 @@
 # Дан номер месяца — целое число в диапазоне 1-12(1 — январь, 2 — февраль). Вывести название соответствующего времени
 # года по номеру месяца («зима», «весна», «лето», «осень»).
-n = input('Input number ')
+n = input('Введите число: ')
 
 while type(n) != int:  # обработка исключений
     try:
         n = int(n)
     except ValueError:
-        print('Wrong input')
-        n = input('Input number ')
+        print('Неправильный ввод')
+        n = input('Введите число: ')
 
 if 0 < n < 3:
     print('зима')
@@ -21,3 +21,4 @@ elif n == 12:
     print('зима')
 else:
     print('Wrong input')
+
