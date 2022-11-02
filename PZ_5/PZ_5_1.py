@@ -4,16 +4,17 @@ from random import randint  # Импортирование библиотеки 
 
 def rand_digit():
     n = randint(1000, 9999)
-    print(n)
+    print('Число:', n)  # Ввод данных
 
-    a = n // 1000
+    a = n // 1000  # Разделение числа на отдельные цифры
     b = n % 1000 // 100
     c = n % 100 // 10
     d = n % 10
+
     if a == b or a == c or a == d or b == c or b == d or c == d:
         print('Есть повторяющиеся цифры.')
     else:
         print('Нет повторяющихся цифр.')
 
 
-rand_digit()
+rand_digit()  # Вызов функции
