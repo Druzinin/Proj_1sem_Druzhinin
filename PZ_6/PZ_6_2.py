@@ -1,7 +1,8 @@
 # Дан целочисленный список А размера N. Переписать в новый целочисленный список B все четные числа из исходного
 # списка (в том же порядке) и вывести размер полученного список В и его содержимое.
-from random import randint
-n = input('Input N: ')
+n = input('Input N: ')  # Ввод данных
+A = [2, 3, 0, 0, 4, 3, 3, 7, 2, 5]
+B = []
 
 while type(n) != int:  # Обработка исключений
     try:
@@ -10,8 +11,9 @@ while type(n) != int:  # Обработка исключений
         print('Wrong input')
         n = input('Input N: ')
 
-a = [randint(0, 9) for _ in range(n)]
+for i in A:  # Добавление четных чисел в список B
+    if i % 2 == 0:
+        B.append(i)
 
-b = list(filter(lambda x: x % 2 == 0, a))
-print('Размер списка:', len(b))
-print('Список B -', b)
+print('Размер списка:', len(B))
+print('Список B -', B)
