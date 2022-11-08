@@ -14,7 +14,7 @@ print(A)
 
 
 def length(x, y):
-    return hypot(x[0] - y[0], x[1] - y[1])
+    return ((x[1] - x[0]) ** 2 + (y[1] - y[0]) ** 2) ** 0.5
 
 
 def per(x, y, z):
@@ -27,6 +27,6 @@ for i in range(n - 2):
             tmp = per(A[i], A[j], A[k])
             if tmp > max_per:
                 max_per = tmp
-                a, b, c = i, j, k
+                a, b, c = A[i], A[j], A[k]
 
 print(a, b, c)
