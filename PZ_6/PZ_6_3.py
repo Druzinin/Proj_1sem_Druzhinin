@@ -5,7 +5,15 @@
 # использовать по два списка: первый список для хранения абсцисс, второй - для хранения ординат.
 from random import randint  # Импортирование модуля randint
 
-n = 5
+n = input('Введите N: ')  # Ввод данных
+
+while type(n) != int:  # Обработка исключений
+    try:
+        n = int(n)
+    except ValueError:
+        print('Неправильный ввод')
+        n = input('Введите N: ')
+
 current_per = 0
 max_per = 0
 a, b, c = 0, 0, 0
