@@ -10,7 +10,7 @@ tmp = 0
 max_per = 0
 a, b, c = 0, 0, 0
 A = [(3, 1), (2, 2), (4, 5), (2, 0), (7, 8)]
-print(A)
+print('Множество:', A)
 
 
 def length(x, y):
@@ -29,4 +29,4 @@ for i in range(n - 2):
                 max_per = tmp
                 a, b, c = A[i], A[j], A[k]
 
-print(a, b, c)
+print('Координаты:', a, b, c)
