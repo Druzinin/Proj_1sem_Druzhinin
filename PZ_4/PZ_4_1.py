@@ -1,12 +1,12 @@
 # Найти сумму 1 + 1 / 2 + 1 / 3 + 1 / N
-N = input('Input number N: ')
+N = input('Введите N: ')  # Ввод данных
 
 while type(N) != int:  # обработка исключений
     try:
         N = int(N)
     except ValueError:
-        print('Wrong input')
-        N = input('input number N: ')
+        print('Неправильный ввод')
+        N = input('Введите N: ')
 
 i = 0
 s = 0

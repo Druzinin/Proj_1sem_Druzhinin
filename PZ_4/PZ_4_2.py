@@ -1,13 +1,13 @@
 # Дано целое число N (>1). Вывести наименьшее из целых чисел K, для которых сумма 1 + 2 + … + K будет больше или
 # равна N, и саму эту сумму.
-n = input('Input number N: ')
+n = input('Введите N: ')  # Ввод данных
 
 while type(n) != int:  # обработка исключений
     try:
         n = int(n)
     except ValueError:
-        print('Wrong input')
-        n = input('input number N: ')
+        print('Неправильный ввод')
+        n = input('Введите N: ')
 
 k = 0
 s = 0
