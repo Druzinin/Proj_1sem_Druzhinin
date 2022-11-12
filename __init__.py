@@ -2,7 +2,6 @@ from random import randint
 n = 10
 x, y = 0, 0
 lst = []
-
 a = [randint(0, 9) for _ in range(n)]
 print(a)
 
