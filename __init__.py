@@ -25,7 +25,7 @@ for i in range(1, N):
 flag = 1
 
 for i in range(1, N):
-    if a[i] > a[i - 1]:  # Текущее число меньше предыдущего
+    if a[i] > a[i - 1]:  # Текущее число больше предыдущего
         if flag:
             k2 += 1
             flag = 0
