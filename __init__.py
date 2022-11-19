@@ -1,8 +1,11 @@
+from numpy import linalg
+from copy import deepcopy
 a = [[1, 0, 5],
      [2, 2, -1],
      [4, 1, 3]]
 b = [[5, 10],
      [4, 8]]
+print(linalg.inv(a))
 
 
 def func_det(x):
@@ -25,28 +28,42 @@ def func_det(x):
 def inverse_matrix(lst):
     det = func_det(lst)
     if not det:
-        return 'Не существует'
+        print('Не существует')
+        return
     else:
-        print('1)', det)
+        print(f'1)\ndet: {det}\n2)')
     ln = len(lst)
     a_ij = [[0] * ln for _ in range(ln)]
     for i in range(ln):
         for j in range(ln):
-            minor = [[0] * (ln-1) for _ in range(ln-1)]
-            for n in range(ln):
-                for m in range(ln):
-
-                    minor[n].append(lst[n][m])
-            a_ij[i][j] = func_det(minor) * (-1) ** (i + j)
-    print(a_ij)
+            m = deepcopy(lst)
+            del m[i]
+            for n in range(ln-1):
+                del m[n][j]
+            det_m = func_det(m)
+            a_ij[i][j] = det_m * (-1) ** (i+1 + j+1)
+    print(*a_ij, sep='\n')
     a_ij_t = [[r[k] for r in a_ij] for k in range(ln)]
-    print('2)', a_ij_t)
-    return 0
+    print('3)', *a_ij_t, sep='\n')
+    inv_lst = [[0.0] * ln for _ in range(ln)]
+    for i in range(ln):
+        for j in range(ln):
+            inv_lst[i][j] = a_ij_t[i][j] * (1 / det)
+    print('4)')
+    print(*inv_lst, sep='\n')
 
 
-print(inverse_matrix(a))
-print(inverse_matrix(b))
+inverse_matrix(a)
+print()
+inverse_matrix(b)
 
+# def minor(A, i, j):
+#     M = copy.deepcopy(A)
+#     del M[i]
+#     for i in range(len(A[0]) - 1):
+#         del M[i][j]
+#     return M
+#
 # Нахождение обратной матрицы, и Детерминанта, примеры на Python
 #
 #
