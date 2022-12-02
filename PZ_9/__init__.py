@@ -45,6 +45,9 @@
 # print(min_number, max_number)
 
 
+# 4
+
+
 # 5
 # from random import randint
 # n, m = 5, 5
@@ -416,28 +419,23 @@
 
 
 # 27
-from random import randint
-n, m = 5, 5
-matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
-print(*matrix, sep='\n')
-array = []
-
-for i in range(n):
-    s = 0
-    for j in range(m):
-        if j % 2:
-            s += matrix[i][j]
-        else:
-            continue
-    array.append(s)
-
-for i in range(n):
-    for j in range(m):
-        if i == 1:
-            matrix[i][j] = array[j]
-
-print(f'\n{array}\n')
-print(*matrix, sep='\n')
+# from random import randint
+# n, m = 5, 5
+# matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
+# print(*matrix, sep='\n')
+# array = []
+#
+# for i in range(n):
+#     array.append([])
+#     for j in range(m):
+#         if j % 2:
+#             array[-1].append(matrix[i][j])
+#     else:
+#         continue
+#
+# print()
+# for k in zip(*array):
+#     print(sum(k))
 
 
 # 28
@@ -456,21 +454,13 @@ print(*matrix, sep='\n')
 # print(min_number)
 
 
-# # 29
+# 29
 # from random import randint
 # n, m = 5, 5
 # matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
 # print(*matrix, sep='\n')
-# array = []
 #
-# for i in range(n):
-#     s = 0
-#     for j in range(m):
-#         if j % 2:
-#             s += matrix[i][j]
-#         else:
-#             continue
-#     array.append(s)
+# array = tuple(map(sum, zip(*matrix)))
 #
 # for i in range(n):
 #     for j in range(m):
@@ -497,3 +487,63 @@ print(*matrix, sep='\n')
 
 
 # 31
+# from random import randint
+# n, m = 5, 5
+# matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
+# print(*matrix, sep='\n')
+# array = tuple(map(sum, matrix))
+#
+# for i in range(n):
+#     for j in range(m):
+#         if j == 2:
+#             matrix[i][j] = array[i]
+#
+# print(f'\n{array}\n')
+# print(*matrix, sep='\n')
+
+
+# 32
+# from random import randint
+# n, m = 5, 5
+# matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
+# print(*matrix, sep='\n')
+# array = []
+#
+# for i in range(n):
+#     for j in range(m):
+#         if i > m / 2:
+#             array.append(matrix[i][j])
+#
+# print()
+# print(sum(array))
+
+
+# 33
+
+
+# 34
+# from random import randint
+# n, m = 5, 5
+# matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
+# print(*matrix, sep='\n')
+# array = tuple(map(sum, matrix[:2]))
+# print()
+# print(sum(array))
+
+
+# 35
+from random import randint
+n, m = 5, 5
+matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
+print(*matrix, sep='\n')
+
+for i in range(n):
+    for j in range(m):
+        if matrix[i][j] % 3 == 0:
+            matrix[i][j] *= 3
+
+print()
+print(*matrix, sep='\n')
+
+
+# 36
