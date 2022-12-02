@@ -52,7 +52,7 @@
 #             max_number = matrix[i][j]
 #
 # print(min_number, max_number)
-#
+
 
 # 4 хз
 # 5
@@ -503,8 +503,8 @@
 #
 # print()
 # print(sum(array))
-#
-#
+
+
 # 33
 
 
@@ -546,8 +546,8 @@
 #             array.append(matrix[i][j])
 #
 # print(sum(array) / len(array))
-#
-#
+
+
 # 37 -> 36
 # 38 -> 1
 # 39
@@ -556,8 +556,8 @@
 # matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
 # print(*matrix, sep='\n')
 # print(sum(matrix[0] + matrix[1]))
-#
-#
+
+
 # 40 -> 3
 # 41 -> 30
 # 42 -> 5
