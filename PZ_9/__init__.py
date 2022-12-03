@@ -11,14 +11,13 @@
 #         if i == 0 or i == n - 1 or j == 0 or j == m - 1:
 #             array.append(matrix2[i][j])
 #
-# print(f'\n{array}\n')
-#
 # for i in range(1, n - 1):
 #     matrix1.append([])
 #     for j in range(1, m - 1):
 #         if matrix2[i][j] not in array:
 #             matrix1[-1].append(matrix2[i][j])
 #
+# print(f'\n{array}\n')
 # print(*matrix1, sep='\n')
 
 
@@ -52,7 +51,7 @@
 #             max_number = matrix[i][j]
 #
 # print(min_number, max_number)
-#
+
 
 # 4 хз
 # 5
