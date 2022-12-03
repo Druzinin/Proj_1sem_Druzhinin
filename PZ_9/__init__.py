@@ -64,7 +64,7 @@
 # for i in range(n):
 #     for j in range(m):
 #         if i == j:
-#             matrix[i][j] **= 2
+#             matrix[i][j] *= 2
 #
 # print()
 # print(*matrix, sep='\n')
@@ -96,7 +96,7 @@
 # for i in range(n):
 #     for j in range(m):
 #         if i != j:
-#             matrix[i][j] **= 2
+#             matrix[i][j] *= 2
 #
 # print()
 # print(*matrix, sep='\n')
@@ -238,7 +238,7 @@
 #
 # for i in range(n):
 #     for j in range(m):
-#         if i == m - 1:
+#         if i == n - 1:
 #             matrix[i][j] = 0
 #
 # print()
@@ -352,7 +352,27 @@
 # print(sum(array))
 
 
-# 23 -> 21
+# 23
+# from random import randint
+# n, m = 5, 5
+# N = 4
+# matrix = [[randint(1, 9) for _ in range(m)] for _ in range(n)]
+# print(*matrix, sep='\n')
+# array = []
+#
+# for i in range(n):
+#     for j in range(m):
+#         if j == N - 1:
+#             array.append(matrix[i][j])
+#
+# print()
+# print(sum(array))
+# s = 1
+# for k in array:
+#     s *= k
+# print(s)
+
+
 # 24
 # from random import randint
 # n, m = 5, 5
@@ -489,25 +509,8 @@
 # print(*matrix, sep='\n')
 
 
-# 32
-# from random import randint
-# n, m = 5, 5
-# matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
-# print(*matrix, sep='\n')
-# array = []
-#
-# for i in range(n):
-#     for j in range(m):
-#         if i > m / 2:
-#             array.append(matrix[i][j])
-#
-# print()
-# print(sum(array))
-#
-#
-# 33
-
-
+# 32 -> 22
+# 33 хз
 # 34
 # from random import randint
 # n, m = 5, 5
@@ -546,8 +549,8 @@
 #             array.append(matrix[i][j])
 #
 # print(sum(array) / len(array))
-#
-#
+
+
 # 37 -> 36
 # 38 -> 1
 # 39
@@ -556,9 +559,32 @@
 # matrix = [[randint(0, 9) for _ in range(m)] for _ in range(n)]
 # print(*matrix, sep='\n')
 # print(sum(matrix[0] + matrix[1]))
-#
-#
+
+
 # 40 -> 3
 # 41 -> 30
 # 42 -> 5
-# 43
+# 43 -> 28
+# 44 -> 25
+# 45 -> 26
+# 46 -> 7
+# 47 -> 24
+# 48 -> 25
+# 49 -> 22
+# 50 -> 9
+# 51 -> 20
+# 52 -> 11
+# 53 -> 18
+# 54 -> 13
+# 55 -> 16
+# 56 -> 15
+# 57 -> 14
+# 58 -> 19
+# 59 -> 12
+# 60 -> 7
+# 61 -> 10
+# 62 -> 17
+# 63 -> 8
+# 64 -> 21
+# 65 -> 6
+# 66 -> 23
