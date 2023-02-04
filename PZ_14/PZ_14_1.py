@@ -1,2 +1,2 @@
-f = open('Dostoevsky.txt').read()
+f = open('Dostoevsky.txt').readlines()
 print(f)
