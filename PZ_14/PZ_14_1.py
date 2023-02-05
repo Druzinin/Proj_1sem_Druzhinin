@@ -2,7 +2,7 @@
 # текстовый файл.
 from re import findall
 f = open('Dostoevsky.txt', encoding='utf-8').read()
-s = findall(r'1857 год \n([\w\W]+)\n18[6-9]\d', f)
+s = findall(r'1857 год \n([\w\W]+)\n1860', f)
 print(s[0])
 
 new_file = open('new_text_file.txt', 'w', encoding='utf-8')
