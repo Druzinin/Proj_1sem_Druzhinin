@@ -1,12 +1,12 @@
-from math import pi
-_default_radius = 5
+default_radius: int = 5
+pi: float = __import__('math').pi
 
 
-def circle_perimeter(r: int = _default_radius) -> float:
+def circle_perimeter(_r: int = default_radius) -> float:
     """Периметр окружности"""
-    return 2 * pi * r
+    return 2 * pi * _r
 
 
-def circle_area(r: int = _default_radius) -> float:
+def circle_area(r_: int = default_radius) -> float:
     """Площадь окружности"""
-    return pi * r ** 2
+    return pi * r_ ** 2

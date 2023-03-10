@@ -1,11 +1,11 @@
-_a = 15
+a: int = 15
 
 
-def square_perimeter(a: int = _a) -> int:
+def square_perimeter(_a: int = a) -> int:
     """Периметр квадрата"""
-    return a * 4
+    return _a * 4
 
 
-def square_area(a: int = _a) -> int:
+def square_area(a_: int = a) -> int:
     """Площадь квадрата"""
-    return a ** 2
+    return a_ ** 2
