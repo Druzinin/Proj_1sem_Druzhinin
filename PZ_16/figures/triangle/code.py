@@ -1,9 +1,15 @@
-a, b, c = 7, 2, 8
+_a, _b, _c = 7, 2, 8
 
 
-def triangle_perimeter(x=a, y=b, z=c):
-    return x + y + z
+def triangle_perimeter(a: int = _a,
+                       b: int = _b,
+                       c: int = _c) -> int:
+    """Периметр треугольника"""
+    return a + b + c
 
 
-def triangle_area(x=a, y=b, z=c):
-    return (p * (p - x) * (p - y) * (p - z)) ** 0.5 if (p := (x + y + z) / 2) else 0
+def triangle_area(a: int = _a,
+                  b: int = _b,
+                  c: int = _c) -> float:
+    """Площадь треугольника"""
+    return (p * (p - a) * (p - b) * (p - c)) ** 0.5 if (p := triangle_perimeter(a, b, c) / 2) else 0.0
