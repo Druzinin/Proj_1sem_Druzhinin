@@ -1493,7 +1493,7 @@
       <Position>2</Position>
     </column>
     <column id="523" parent="506" name="year_publishing">
-      <DasType>TEXT|0s</DasType>
+      <DasType>INTEGER|0s</DasType>
       <Position>3</Position>
     </column>
     <column id="524" parent="506" name="storage">
@@ -1504,8 +1504,8 @@
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="526" parent="506" name="id_publishing_house">
-      <DasType>TEXT|0s</DasType>
+    <column id="526" parent="506" name="id_publishing">
+      <DasType>INTEGER|0s</DasType>
       <Position>6</Position>
     </column>
     <foreign-key id="527" parent="506">
@@ -1516,17 +1516,17 @@
       <RefTableName>sections</RefTableName>
     </foreign-key>
     <foreign-key id="528" parent="506">
-      <ColNames>id_publishing_house</ColNames>
+      <ColNames>id_publishing</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id_publishing_house</RefColNames>
+      <RefColNames>id_publishing</RefColNames>
       <RefTableName>publishing</RefTableName>
     </foreign-key>
     <key id="529" parent="506">
       <ColNames>id_books</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="530" parent="507" name="id_publishing_house">
+    <column id="530" parent="507" name="id_publishing">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
@@ -1536,42 +1536,47 @@
       <Position>2</Position>
     </column>
     <key id="532" parent="507">
-      <ColNames>id_publishing_house</ColNames>
+      <ColNames>id_publishing</ColNames>
       <Primary>1</Primary>
     </key>
     <column id="533" parent="508" name="id_section">
-      <AutoIncrement>1</AutoIncrement>
-      <DasType>INTEGER|0s</DasType>
-      <Position>1</Position>
-    </column>
-    <key id="534" parent="508">
-      <ColNames>id_section</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="535" parent="509" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="536" parent="509" name="name">
+    <index id="534" parent="508" name="sqlite_autoindex_sections_1">
+      <ColNames>id_section</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <Unique>1</Unique>
+    </index>
+    <key id="535" parent="508">
+      <ColNames>id_section</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_sections_1</UnderlyingIndexName>
+    </key>
+    <column id="536" parent="509" name="type">
+      <DasType>TEXT|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="537" parent="509" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="537" parent="509" name="tbl_name">
+    <column id="538" parent="509" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="538" parent="509" name="rootpage">
+    <column id="539" parent="509" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="539" parent="509" name="sql">
+    <column id="540" parent="509" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="540" parent="510" name="name">
+    <column id="541" parent="510" name="name">
       <Position>1</Position>
     </column>
-    <column id="541" parent="510" name="seq">
+    <column id="542" parent="510" name="seq">
       <Position>2</Position>
     </column>
   </database-model>
