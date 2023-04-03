@@ -23,7 +23,7 @@ with sq.connect('Library.sqlite') as con:
     storage TEXT,
     section TEXT
     REFERENCES sections ON DELETE CASCADE ON UPDATE CASCADE,
-    id_publishing INTEGER
+    publish TEXT
     REFERENCES publishing ON DELETE CASCADE ON UPDATE CASCADE
     );""")
 
@@ -32,7 +32,7 @@ with sq.connect('Library.sqlite') as con:
     );""")
 
     cur.execute("""CREATE TABLE IF NOT EXISTS publishing (
-    id_publishing INTEGER PRIMARY KEY AUTOINCREMENT,
+    publish TEXT PRIMARY KEY,
     city TEXT
     );""")
 
@@ -46,7 +46,6 @@ with sq.connect('Library.sqlite') as con:
 
 
 with sq.connect('Library.sqlite') as con:
-    con.execute("PRAGMA foreign_keys = ON;")
     cur = con.cursor()
     cur.executemany("INSERT INTO authors VALUES (?, ?, ?)", info_authors)
     cur.executemany("INSERT INTO sections VALUES (?)", info_sections)
@@ -57,10 +56,19 @@ with sq.connect('Library.sqlite') as con:
 
 with sq.connect('Library.sqlite') as con:
     cur = con.cursor()
-    print(*cur.execute("SELECT name, year_publishing FROM books ORDER BY year_publishing"))
-    print(*cur.execute("""SELECT name FROM books INNER JOIN
-    author_book ON books.id_books = id_book
-    """))
-    print(*cur.execute("SELECT * FROM books"))
-    print(*cur.execute("SELECT surname FROM authors ORDER BY surname"))
-    print(*cur.execute("SELECT * FROM books"))
+    print('1)', *cur.execute("SELECT name, year_publishing FROM books ORDER BY year_publishing"), sep='\n')
+    print()
+    print('2)', *cur.execute("""SELECT name FROM author_book INNER JOIN
+    books ON books.id_books = author_book.id_author_book WHERE id_author == 1
+    """), sep='\n')
+    print()
+    # print('3)', *cur.execute("SELECT * FROM books"), sep='\n')
+    # print()
+    print('4)', *cur.execute("SELECT surname FROM authors ORDER BY surname"), sep='\n')
+    print()
+    # print('5)', *cur.execute("SELECT * FROM books"), sep='\n')
+    # print()
+
+with sq.connect('Library.sqlite') as con:
+    cur = con.cursor()
+    cur.execute("""UPDATE books SET year_publishing = 2023, name = 'Новая книга' WHERE city = 'Москва'""")
