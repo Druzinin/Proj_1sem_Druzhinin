@@ -56,107 +56,126 @@ with sq.connect('Library.sqlite') as con:
                     "VALUES (?, ?, ?, ?, ?)", info_books)
 
 # SELECTS
-# with sq.connect('Library.sqlite') as con:
-#     cur = con.cursor()
-#
-#     print('\n1.')
-#     for row in cur.execute("SELECT name, year_publish FROM books ORDER BY year_publish"):
-#         print(*row)
-#     print('\n2.')
-#
-#     for row in cur.execute("""SELECT books.name FROM books JOIN author_book ON books.id_books = author_book.id_book
-#         JOIN authors ON author_book.id_author = authors.id_author WHERE authors.surname = ? AND authors.name = ?""",
-#                            ('Иванов', 'Петр')):
-#         print(*row)
-#     print('\n3.')
-#
-#     for row in cur.execute("""SELECT name FROM books JOIN sections ON books.id_section = sections.id_section
-#     WHERE sections.section = ?""", ('Drama',)):
-#         print(*row)
-#     print('\n4.')
-#
-#     for row in cur.execute("""SELECT name FROM books JOIN publishing ON books.id_publish = publishing.id_publish
-#     WHERE publishing.publish = ?""", ('Elsevier',)):
-#         print(*row)
-#     print('\n5.')
-#
-#     for row in cur.execute("SELECT surname, name FROM authors ORDER BY surname, name"):
-#         print(*row)
-#     print('\n6.')
-#
-#     for row in cur.execute("SELECT name, year_publish FROM books ORDER BY name, year_publish"):
-#         print(*row)
-#     print('\n7.')
-#
-#     for row in cur.execute("""SELECT books.name, year_publish FROM books JOIN
-#     author_book ON books.id_books = author_book.id_book JOIN authors ON author_book.id_author = authors.id_author
-#     WHERE authors.surname = ? AND authors.name = ? ORDER BY year_publish""", ('Иванов', 'Петр')):
-#         print(*row)
-#     print('\n8.')
-#
-#     for row in cur.execute("SELECT name FROM books WHERE year_publish = ?", (1842,)):
-#         print(*row)
-#     print('\n9.')
-#
-#     for row in cur.execute("""SELECT authors.surname, authors.name FROM authors JOIN
-#     author_book ON authors.id_author = author_book.id_author JOIN
-#     books ON author_book.id_book = books.id_books JOIN
-#     publishing ON books.id_publish = publishing.id_publish WHERE publishing.publish = ?""", ('Elsevier',)):
-#         print(*row)
-#     print('\n10.')
-#
-#     for row in cur.execute("SELECT name FROM books WHERE name LIKE ?", ('%and%',)):
-#         print(*row)
+with sq.connect('Library.sqlite') as con:
+    cur = con.cursor()
+
+    print('\n1.')
+    for row in cur.execute("SELECT name, year_publish FROM books ORDER BY year_publish"):
+        print(*row)
+    print('\n2.')
+
+    for row in cur.execute("""SELECT books.name FROM books JOIN author_book ON books.id_books = author_book.id_book
+        JOIN authors ON author_book.id_author = authors.id_author WHERE authors.surname = ? AND authors.name = ?""",
+                           ('Иванов', 'Петр')):
+        print(*row)
+    print('\n3.')
+
+    for row in cur.execute("""SELECT name FROM books JOIN sections ON books.id_section = sections.id_section
+    WHERE sections.section = ?""", ('Drama',)):
+        print(*row)
+    print('\n4.')
+
+    for row in cur.execute("""SELECT name FROM books JOIN publishing ON books.id_publish = publishing.id_publish
+    WHERE publishing.publish = ?""", ('Elsevier',)):
+        print(*row)
+    print('\n5.')
+
+    for row in cur.execute("SELECT surname, name FROM authors ORDER BY surname, name"):
+        print(*row)
+    print('\n6.')
+
+    for row in cur.execute("SELECT name, year_publish FROM books ORDER BY name, year_publish"):
+        print(*row)
+    print('\n7.')
+
+    for row in cur.execute("""SELECT books.name, year_publish FROM books JOIN
+    author_book ON books.id_books = author_book.id_book JOIN authors ON author_book.id_author = authors.id_author
+    WHERE authors.surname = ? AND authors.name = ? ORDER BY year_publish""", ('Иванов', 'Петр')):
+        print(*row)
+    print('\n8.')
+
+    for row in cur.execute("SELECT name FROM books WHERE year_publish = ?", (1842,)):
+        print(*row)
+    print('\n9.')
+
+    for row in cur.execute("""SELECT authors.surname, authors.name FROM authors JOIN
+    author_book ON authors.id_author = author_book.id_author JOIN
+    books ON author_book.id_book = books.id_books JOIN
+    publishing ON books.id_publish = publishing.id_publish WHERE publishing.publish = ?""", ('Elsevier',)):
+        print(*row)
+    print('\n10.')
+
+    for row in cur.execute("SELECT name FROM books WHERE name LIKE ?", ('%and%',)):
+        print(*row)
 
 
 # UPDATES
 # with sq.connect('Library.sqlite') as con:
 #     cur = con.cursor()
 #
+#     # 1. Обновить год издания всех книг, написанных автором с фамилией "Иванов", установив год издания равным 2022:
 #     cur.execute("""UPDATE books SET year_publish = 2022 WHERE id_books IN (SELECT id_books FROM author_book JOIN
 #     authors ON author_book.id_author = authors.id_author WHERE surname = 'Иванов')""")
 #
+#     # 2. Обновить название и год издания книги, хранящейся в городе "Москва", установив
+#     # название "Новая книга" и год издания равным 2023:
 #     cur.execute("UPDATE books SET name = 'Новая книга', year_publish = 2023 WHERE storage = 'Москва'")
 #
+#     # 3. Обновить название и раздел всех книг, написанных автором с именем "Александр" и фамилией "Петров", установив
+#     # название "Новое название" и раздел "Фантастика":
 #     cur.execute("""UPDATE books SET name = 'Новое название', id_section = (SELECT id_section FROM sections
 #     WHERE section = 'Фантастика') WHERE id_books IN (SELECT id_books FROM author_book JOIN
 #     authors ON author_book.id_author = authors.id_author WHERE name = 'Александр' AND surname = 'Петров')""")
 #
+#     # 4. Обновить название всех книг, которые были опубликованы в годы с 2010 по 2015 включительно, установив
+#     # название "Старое название":
 #     cur.execute("UPDATE books SET name = 'Старое название' WHERE year_publish BETWEEN 2010 AND 2015")
 #
+#     # 5. Обновить место хранения всех книг, написанных автором с кодом 7, установив место хранения "Библиотека №2":
 #     cur.execute("""UPDATE books SET storage = 'Библиотека №2' WHERE id_books IN (SELECT id_books FROM author_book
 #     WHERE id_author = 7)""")
 #
+#     # 6. Обновление города из таблицы Издательства по коду города в таблице Книги:
 #     cur.execute("""UPDATE publishing SET city = (SELECT city FROM books
 #     WHERE books.id_publish = publishing.id_publish)""")
 #
+#     # 7. Обновление кода автора в таблице АвторКниги по коду автора в таблице Авторы:
 #     cur.execute("""UPDATE author_book SET id_author = (SELECT id_author FROM authors
 #     WHERE authors.id_author = author_book.id_author)""")
 #
+#     # 8. Обновление названия раздела в таблице Книги по названию раздела в таблице Разделы:
 #     cur.execute("""UPDATE books SET id_section = (SELECT id_section FROM sections
 #     WHERE sections.section = books.id_section)""")
 #
+#     # 9. Обновление года издания в таблице books по году издания в таблице author_book:
 #     cur.execute("""UPDATE books SET year_publish = 2022
 #                 WHERE id_books IN (SELECT id_book FROM author_book WHERE year_publish = 2021)""")
 #
+#     # 10. Обновление места хранения в таблице books по названию издательства в таблице publishing:
 #     cur.execute("""UPDATE books SET storage = 'Книжный шкаф 1'
 #                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE publish = 'Издательство А')""")
 #
+#     # 11. Обновление фамилии автора в таблице authors по коду автора в таблице author_book:
 #     cur.execute("""UPDATE authors SET surname = 'Новая фамилия'
 #                 WHERE id_author IN (SELECT id_author FROM author_book WHERE id_author = 1)""")
 #
+#     # 12. Обновить год издания всех книг, изданных в городе "Москва", на 2022 год.
 #     cur.execute("""UPDATE books SET year_publish = 2022
 #                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Москва')""")
 #
+#     # 13. Обновить место хранения всех книг, написанных автором с фамилией "Иванов", на "Книжный шкаф 1".
 #     cur.execute("""UPDATE books SET storage = 'Книжный шкаф 1' WHERE id_books IN (SELECT id_book FROM author_book
 #     WHERE id_author IN (SELECT id_author FROM authors WHERE surname = 'Иванов'))""")
 #
+#     # 14. Обновить год издания всех книг, написанных автором с именем "Анна", на 2023 год.
 #     cur.execute("""UPDATE books SET year_publish = 2023 WHERE id_books IN (SELECT id_book FROM author_book
 #     WHERE id_author IN (SELECT id_author FROM authors WHERE name = 'Анна'))""")
 #
+#     # 15. Обновить название раздела всех книг, изданных в городе "Санкт-Петербург", на "Классика".
 #     cur.execute("""UPDATE books SET id_section = (SELECT id_section FROM sections WHERE section = 'Классика')
 #                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Санкт-Петербург')""")
 #
+#     # 16. Обновить год издания всех книг, написанных автором с фамилией "Петров", на 2024 год.
 #     cur.execute("""UPDATE books SET year_publish = 2024 WHERE id_books IN (SELECT id_book FROM author_book
 #                 WHERE id_author IN (SELECT id_author FROM authors WHERE surname = 'Петров'))""")
 #

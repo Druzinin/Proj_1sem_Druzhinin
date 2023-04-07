@@ -1492,7 +1492,7 @@
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="523" parent="506" name="year_publishing">
+    <column id="523" parent="506" name="year_publish">
       <DasType>INTEGER|0s</DasType>
       <Position>3</Position>
     </column>
