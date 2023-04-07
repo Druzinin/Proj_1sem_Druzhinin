@@ -19,7 +19,7 @@ with sq.connect('Library.sqlite') as con:
     cur.execute("""CREATE TABLE IF NOT EXISTS books (
     id_books INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    year_publishing INTEGER,
+    year_publish INTEGER,
     storage TEXT,
     id_section INTEGER
     REFERENCES sections ON DELETE CASCADE ON UPDATE CASCADE,
@@ -52,7 +52,7 @@ with sq.connect('Library.sqlite') as con:
     cur.executemany("INSERT INTO sections (section) VALUES (?)", info_sections)
     cur.executemany("INSERT INTO publishing (publish, city) VALUES (?, ?)", info_publishing)
     cur.executemany("INSERT INTO author_book (id_book, id_author) VALUES (?, ?)", info_author_book)
-    cur.executemany("INSERT INTO books (name, year_publishing, storage, id_section, id_publish)"
+    cur.executemany("INSERT INTO books (name, year_publish, storage, id_section, id_publish)"
                     "VALUES (?, ?, ?, ?, ?)", info_books)
 
 # SELECTS
@@ -60,7 +60,7 @@ with sq.connect('Library.sqlite') as con:
 #     cur = con.cursor()
 #
 #     print('\n1.')
-#     for row in cur.execute("SELECT name, year_publishing FROM books ORDER BY year_publishing"):
+#     for row in cur.execute("SELECT name, year_publish FROM books ORDER BY year_publish"):
 #         print(*row)
 #     print('\n2.')
 #
@@ -84,17 +84,17 @@ with sq.connect('Library.sqlite') as con:
 #         print(*row)
 #     print('\n6.')
 #
-#     for row in cur.execute("SELECT name, year_publishing FROM books ORDER BY name, year_publishing"):
+#     for row in cur.execute("SELECT name, year_publish FROM books ORDER BY name, year_publish"):
 #         print(*row)
 #     print('\n7.')
 #
-#     for row in cur.execute("""SELECT books.name, year_publishing FROM books JOIN
+#     for row in cur.execute("""SELECT books.name, year_publish FROM books JOIN
 #     author_book ON books.id_books = author_book.id_book JOIN authors ON author_book.id_author = authors.id_author
-#     WHERE authors.surname = ? AND authors.name = ? ORDER BY year_publishing""", ('Иванов', 'Петр')):
+#     WHERE authors.surname = ? AND authors.name = ? ORDER BY year_publish""", ('Иванов', 'Петр')):
 #         print(*row)
 #     print('\n8.')
 #
-#     for row in cur.execute("SELECT name FROM books WHERE year_publishing = ?", (1842,)):
+#     for row in cur.execute("SELECT name FROM books WHERE year_publish = ?", (1842,)):
 #         print(*row)
 #     print('\n9.')
 #
@@ -113,16 +113,16 @@ with sq.connect('Library.sqlite') as con:
 # with sq.connect('Library.sqlite') as con:
 #     cur = con.cursor()
 #
-#     cur.execute("""UPDATE books SET year_publishing = 2022 WHERE id_books IN (SELECT id_books FROM author_book JOIN
+#     cur.execute("""UPDATE books SET year_publish = 2022 WHERE id_books IN (SELECT id_books FROM author_book JOIN
 #     authors ON author_book.id_author = authors.id_author WHERE surname = 'Иванов')""")
 #
-#     cur.execute("UPDATE books SET name = 'Новая книга', year_publishing = 2023 WHERE storage = 'Москва'")
+#     cur.execute("UPDATE books SET name = 'Новая книга', year_publish = 2023 WHERE storage = 'Москва'")
 #
 #     cur.execute("""UPDATE books SET name = 'Новое название', id_section = (SELECT id_section FROM sections
 #     WHERE section = 'Фантастика') WHERE id_books IN (SELECT id_books FROM author_book JOIN
 #     authors ON author_book.id_author = authors.id_author WHERE name = 'Александр' AND surname = 'Петров')""")
 #
-#     cur.execute("UPDATE books SET name = 'Старое название' WHERE year_publishing BETWEEN 2010 AND 2015")
+#     cur.execute("UPDATE books SET name = 'Старое название' WHERE year_publish BETWEEN 2010 AND 2015")
 #
 #     cur.execute("""UPDATE books SET storage = 'Библиотека №2' WHERE id_books IN (SELECT id_books FROM author_book
 #     WHERE id_author = 7)""")
@@ -136,8 +136,8 @@ with sq.connect('Library.sqlite') as con:
 #     cur.execute("""UPDATE books SET id_section = (SELECT id_section FROM sections
 #     WHERE sections.section = books.id_section)""")
 #
-#     cur.execute("""UPDATE books SET year_publishing = 2022
-#                 WHERE id_books IN (SELECT id_book FROM author_book WHERE year_publishing = 2021)""")
+#     cur.execute("""UPDATE books SET year_publish = 2022
+#                 WHERE id_books IN (SELECT id_book FROM author_book WHERE year_publish = 2021)""")
 #
 #     cur.execute("""UPDATE books SET storage = 'Книжный шкаф 1'
 #                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE publish = 'Издательство А')""")
@@ -145,19 +145,19 @@ with sq.connect('Library.sqlite') as con:
 #     cur.execute("""UPDATE authors SET surname = 'Новая фамилия'
 #                 WHERE id_author IN (SELECT id_author FROM author_book WHERE id_author = 1)""")
 #
-#     cur.execute("""UPDATE books SET year_publishing = 2022
+#     cur.execute("""UPDATE books SET year_publish = 2022
 #                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Москва')""")
 #
 #     cur.execute("""UPDATE books SET storage = 'Книжный шкаф 1' WHERE id_books IN (SELECT id_book FROM author_book
 #     WHERE id_author IN (SELECT id_author FROM authors WHERE surname = 'Иванов'))""")
 #
-#     cur.execute("""UPDATE books SET year_publishing = 2023 WHERE id_books IN (SELECT id_book FROM author_book
+#     cur.execute("""UPDATE books SET year_publish = 2023 WHERE id_books IN (SELECT id_book FROM author_book
 #     WHERE id_author IN (SELECT id_author FROM authors WHERE name = 'Анна'))""")
 #
 #     cur.execute("""UPDATE books SET id_section = (SELECT id_section FROM sections WHERE section = 'Классика')
 #                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Санкт-Петербург')""")
 #
-#     cur.execute("""UPDATE books SET year_publishing = 2024 WHERE id_books IN (SELECT id_book FROM author_book
+#     cur.execute("""UPDATE books SET year_publish = 2024 WHERE id_books IN (SELECT id_book FROM author_book
 #                 WHERE id_author IN (SELECT id_author FROM authors WHERE surname = 'Петров'))""")
 #
 #
@@ -169,7 +169,7 @@ with sq.connect('Library.sqlite') as con:
 #     cur.execute("DELETE FROM books WHERE id_section = (SELECT id_section FROM sections WHERE section = 'Фантастика')")
 #
 #     # 2. Удалить все записи из таблицы Книги, у которых ГодИздания меньше 2000:
-#     cur.execute("DELETE FROM books WHERE year_publishing < 2000")
+#     cur.execute("DELETE FROM books WHERE year_publish < 2000")
 #
 #     # 3. Удалить все записи из таблицы АвторКниги, у которых КодАвтора равен 1:
 #     cur.execute("DELETE FROM author_book WHERE id_author = 1")
@@ -199,7 +199,7 @@ with sq.connect('Library.sqlite') as con:
 #     cur.execute("DELETE FROM books WHERE name LIKE '%Война%'")
 #
 #     # 12. Удалить все книги, которые были изданы до 2000 года включительно и хранятся в "Библиотека №1".
-#     cur.execute("DELETE FROM books WHERE year_publishing <= 2000 AND storage = 'Библиотека №1'")
+#     cur.execute("DELETE FROM books WHERE year_publish <= 2000 AND storage = 'Библиотека №1'")
 #
 #     # 13. Удалить всех авторов, у которых нет книг в таблице Книги.
 #     cur.execute("DELETE FROM authors WHERE id_author NOT IN (SELECT DISTINCT id_author FROM author_book)")
