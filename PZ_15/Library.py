@@ -21,18 +21,20 @@ with sq.connect('Library.sqlite') as con:
     name TEXT,
     year_publishing INTEGER,
     storage TEXT,
-    section TEXT
+    id_section INTEGER
     REFERENCES sections ON DELETE CASCADE ON UPDATE CASCADE,
-    publish TEXT
+    id_publish INTEGER
     REFERENCES publishing ON DELETE CASCADE ON UPDATE CASCADE
     );""")
 
     cur.execute("""CREATE TABLE IF NOT EXISTS sections (
-    section TEXT PRIMARY KEY
+    id_section INTEGER PRIMARY KEY AUTOINCREMENT,
+    section TEXT
     );""")
 
     cur.execute("""CREATE TABLE IF NOT EXISTS publishing (
-    publish TEXT PRIMARY KEY,
+    id_publish INTEGER PRIMARY KEY AUTOINCREMENT,
+    publish TEXT,
     city TEXT
     );""")
 
@@ -50,268 +52,178 @@ with sq.connect('Library.sqlite') as con:
     cur.executemany("INSERT INTO sections (section) VALUES (?)", info_sections)
     cur.executemany("INSERT INTO publishing (publish, city) VALUES (?, ?)", info_publishing)
     cur.executemany("INSERT INTO author_book (id_book, id_author) VALUES (?, ?)", info_author_book)
-    cur.executemany("INSERT INTO books (name, year_publishing, storage, section, publish)"
+    cur.executemany("INSERT INTO books (name, year_publishing, storage, id_section, id_publish)"
                     "VALUES (?, ?, ?, ?, ?)", info_books)
 
-with sq.connect('Library.sqlite') as con:
-    cur = con.cursor()
-
-    cur.execute("SELECT name, year_publishing FROM books ORDER BY year_publishing")
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0], row[1])
-
-    author_last_name = 'Иванов'
-    author_first_name = 'Петр'
-    cur.execute("""SELECT books.name FROM books JOIN author_book ON books.id_books = author_book.id_book
-        JOIN authors ON author_book.id_author = authors.id_author WHERE authors.surname = ? AND authors.name = ?""",
-                (author_last_name, author_first_name))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0])
-
-    section = 'Детективы'
-    cur.execute("""SELECT name FROM books JOIN main.sections ON books.section = sections.section
-    WHERE sections.section = ?""",
-                (section,))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0])
-
-    publisher = 'Eksmo'
-    cur.execute("""SELECT name FROM books JOIN publishing ON books.publish = publishing.publish
-    WHERE publishing.publish = ?""",
-                (publisher,))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0])
-
-    cur.execute("SELECT surname, name FROM authors ORDER BY surname, name")
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0], row[1])
-
-    cur.execute("SELECT name, year_publishing FROM books ORDER BY name, year_publishing")
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0], row[1])
-
-    author_last_name = 'Иванов'
-    author_first_name = 'Петр'
-    cur.execute("""SELECT books.name, year_publishing FROM books JOIN
-    main.author_book ON books.id_books = author_book.id_book JOIN authors ON author_book.id_author = authors.id_author
-    WHERE authors.surname = ? AND authors.name = ? ORDER BY year_publishing""",
-                (author_last_name, author_first_name))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0], row[1])
-
-    year = 2017
-    cur.execute("SELECT name FROM books WHERE year_publishing = ?", (year,))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0])
-
-    publisher = 'Eksmo'
-    cur.execute("""SELECT DISTINCT authors.surname, authors.name FROM authors JOIN
-    main.author_book ON authors.id_author = author_book.id_author JOIN books ON author_book.id_book = books.id_books
-    JOIN publishing ON books.publish = publishing.publish WHERE publishing.publish = ?""",
-                (publisher,))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0], row[1])
-
-    word = '%метро%'
-    cur.execute("SELECT name FROM books WHERE name LIKE ?", (word,))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row[0])
-
-
-# UPDATE Книги
-# SET год_издания = 2022
-# WHERE автор IN (
-# SELECT id_автора
-# FROM Авторы
-# WHERE фамилия = 'Иванов'
-# );
+# SELECTS
+# with sq.connect('Library.sqlite') as con:
+#     cur = con.cursor()
 #
-# UPDATE Книги
-# SET название = 'Новая книга', год_издания = 2023
-# WHERE место_хранения IN (
-# SELECT id_места
-# FROM МестаХранения
-# WHERE город = 'Москва'
-# );
+#     print('\n1.')
+#     for row in cur.execute("SELECT name, year_publishing FROM books ORDER BY year_publishing"):
+#         print(*row)
+#     print('\n2.')
 #
-# UPDATE Книги
-# SET название = 'Новое название', раздел = 'Фантастика'
-# WHERE автор IN (
-# SELECT id_автора
-# FROM Авторы
-# WHERE имя = 'Александр' AND фамилия = 'Петров'
-# );
+#     for row in cur.execute("""SELECT books.name FROM books JOIN author_book ON books.id_books = author_book.id_book
+#         JOIN authors ON author_book.id_author = authors.id_author WHERE authors.surname = ? AND authors.name = ?""",
+#                            ('Иванов', 'Петр')):
+#         print(*row)
+#     print('\n3.')
 #
-# UPDATE Книги
-# SET название = 'Старое название'
-# WHERE год_издания BETWEEN 2010 AND 2015;
+#     for row in cur.execute("""SELECT name FROM books JOIN sections ON books.id_section = sections.id_section
+#     WHERE sections.section = ?""", ('Drama',)):
+#         print(*row)
+#     print('\n4.')
 #
-# UPDATE Книги
-# SET место_хранения = 'Библиотека №2'
-# WHERE автор = 7;
+#     for row in cur.execute("""SELECT name FROM books JOIN publishing ON books.id_publish = publishing.id_publish
+#     WHERE publishing.publish = ?""", ('Elsevier',)):
+#         print(*row)
+#     print('\n5.')
 #
-# UPDATE Книги
-# SET город_издания = (
-# SELECT город
-# FROM Издательства
-# WHERE Издательства.id_города = Книги.id_города
-# );
+#     for row in cur.execute("SELECT surname, name FROM authors ORDER BY surname, name"):
+#         print(*row)
+#     print('\n6.')
 #
-# UPDATE АвторКниги
-# SET код_автора = (
-# SELECT id_автора
-# FROM Авторы
-# WHERE Авторы.id_автора = АвторКниги.id_автора
-# );
+#     for row in cur.execute("SELECT name, year_publishing FROM books ORDER BY name, year_publishing"):
+#         print(*row)
+#     print('\n7.')
 #
-# UPDATE Книги
-# SET раздел = (
-# SELECT название
-# FROM Разделы
-# WHERE Разделы.id_раздела = Книги.id_раздела
-# );
+#     for row in cur.execute("""SELECT books.name, year_publishing FROM books JOIN
+#     author_book ON books.id_books = author_book.id_book JOIN authors ON author_book.id_author = authors.id_author
+#     WHERE authors.surname = ? AND authors.name = ? ORDER BY year_publishing""", ('Иванов', 'Петр')):
+#         print(*row)
+#     print('\n8.')
 #
-# UPDATE Книги
-# SET год_издания = (
-# SELECT год_издания
-# FROM АвторКниги
-# WHERE АвторКниги.id_книги = Книги.id_книги
-# );
+#     for row in cur.execute("SELECT name FROM books WHERE year_publishing = ?", (1842,)):
+#         print(*row)
+#     print('\n9.')
 #
-# UPDATE Книги
-# SET место_хранения = (
-# SELECT МестаХранения.название
-# FROM Издательства
-# INNER JOIN МестаХранения ON Издательства.id_места = МестаХранения.id_места
-# WHERE Издательства.id_издательства = Книги.id_издательства
-# );
+#     for row in cur.execute("""SELECT authors.surname, authors.name FROM authors JOIN
+#     author_book ON authors.id_author = author_book.id_author JOIN
+#     books ON author_book.id_book = books.id_books JOIN
+#     publishing ON books.id_publish = publishing.id_publish WHERE publishing.publish = ?""", ('Elsevier',)):
+#         print(*row)
+#     print('\n10.')
 #
-# UPDATE Авторы
-# SET фамилия = (
-# SELECT фамилия
-# FROM АвторКниги
-# WHERE АвторКниги.id_автора = Авторы.id_автора
-# )
-# WHERE id_автора IN (
-# SELECT id_автора
-# FROM АвторКниги
-# );
+#     for row in cur.execute("SELECT name FROM books WHERE name LIKE ?", ('%and%',)):
+#         print(*row)
+
+
+# UPDATES
+# with sq.connect('Library.sqlite') as con:
+#     cur = con.cursor()
 #
-# UPDATE Книги
-# SET год_издания = 2022
-# WHERE город_издания = 'Москва';
-# UPDATE Книги
-# SET МестоХранения = 'Книжный шкаф 1'
-# WHERE АвторКниги IN (
-#   SELECT Код
-#   FROM АвторКниги
-#   WHERE АвторКниги.КодАвтора IN (
-#     SELECT Код
-#     FROM Авторы
-#     WHERE Авторы.Фамилия = 'Иванов'
-#   )
-# );
+#     cur.execute("""UPDATE books SET year_publishing = 2022 WHERE id_books IN (SELECT id_books FROM author_book JOIN
+#     authors ON author_book.id_author = authors.id_author WHERE surname = 'Иванов')""")
 #
-# UPDATE Книги
-# SET ГодИздания = 2023
-# WHERE АвторКниги IN (
-#   SELECT Код
-#   FROM АвторКниги
-#   WHERE АвторКниги.КодАвтора IN (
-#     SELECT Код
-#     FROM Авторы
-#     WHERE Авторы.Имя = 'Анна'
-#   )
-# );
+#     cur.execute("UPDATE books SET name = 'Новая книга', year_publishing = 2023 WHERE storage = 'Москва'")
 #
-# UPDATE Книги
-# SET Раздел = 'Классика'
-# WHERE ГородИздания = 'Санкт-Петербург';
-# UPDATE Книги
-# SET ГодИздания = 2024
-# WHERE АвторКниги IN (
-#   SELECT Код
-#   FROM АвторКниги
-#   WHERE АвторКниги.КодАвтора IN (
-#     SELECT Код
-#     FROM Авторы
-#     WHERE Авторы.Фамилия = 'Петров'
-#   )
-# );
-
-# 1. UPDATE Library SET year_published = 2022 WHERE author_lastname = 'Иванов';
-# 2. UPDATE Library SET title = 'Новая книга', year_published = 2023 WHERE location = 'Москва';
-# 3. UPDATE Library SET title = 'Новое название', section = 'Фантастика'
-# WHERE author_firstname = 'Александр' AND author_lastname = 'Петров';
-# 4. UPDATE Library SET title = 'Старое название' WHERE year_published BETWEEN 2010 AND 2015;
-# 5. UPDATE Library SET location = 'Библиотека №2' WHERE author_code = 7;
-# 6. UPDATE Книги SET city = (SELECT city FROM Издательства WHERE Издательства.city_code = Книги.city_code);
-# 7. UPDATE АвторКниги SET author_code = (SELECT code FROM Авторы WHERE Авторы.author_code = АвторКниги.author_code);
-# 8. UPDATE Книги SET section = (SELECT section FROM Разделы WHERE Разделы.section_name = Книги.section);
-# 9. UPDATE Книги SET year_published = (SELECT year_published FROM АвторКниги WHERE АвторКниги.book_code = Книги.code);
-# 10. UPDATE Книги SET location = (SELECT location FROM Издательства WHERE Издательства.name = Книги.publisher);
-# 11. UPDATE Авторы SET author_lastname = (SELECT author_lastname FROM АвторКниги
-# WHERE АвторКниги.author_code = Авторы.code);
-# 12. UPDATE Library SET year_published = 2022 WHERE location = 'Москва';
-# 13. UPDATE Library SET location = 'Книжный шкаф 1' WHERE author_lastname = 'Иванов';
-# 14. UPDATE Library SET year_published = 2023 WHERE author_firstname = 'Анна';
-# 15. UPDATE Library SET section = 'Классика' WHERE location = 'Санкт-Петербург';
-# 16. UPDATE Library SET year_published = 2024 WHERE author_lastname = 'Петров';
-
-
-# DELETE FROM Книги WHERE Раздел = 'Фантастика';
-
-# DELETE FROM Книги WHERE ГодИздания < 2000;
-
-# DELETE FROM АвторКниги WHERE КодАвтора = 1;
-
-# DELETE FROM Авторы WHERE Фамилия LIKE 'А%';
-# -- также нужно удалить связанные записи из таблицы АвторКниги
-
-# DELETE FROM АвторКниги WHERE КодАвтора IN (SELECT КодАвтора FROM Авторы WHERE Фамилия LIKE 'А%');
-
-# DELETE FROM Издательства WHERE Город = 'Москва';
-
-# DELETE FROM АвторКниги WHERE КодКниги = 10;
-
-# DELETE FROM Книги WHERE МестоХранения = 'Склад';
-
-# DELETE FROM Разделы WHERE Раздел = 'Детективы';
-
-# DELETE FROM АвторКниги WHERE КодАвтора = 2;
-
-# DELETE FROM Издательства WHERE Издательство = 'O''Reilly Media';
-
-# DELETE FROM Книги WHERE Название LIKE '%Война%';
-
-# DELETE FROM Книги WHERE ГодИздания <= 2000 AND МестоХранения = 'Библиотека №1';
-
-# DELETE FROM Авторы WHERE КодАвтора NOT IN (SELECT КодАвтора FROM АвторКниги);
-
-# DELETE FROM Книги WHERE КодИздательства IN (SELECT КодИздательства FROM Издательства WHERE Город = 'Москва');
-
-# DELETE FROM Авторы WHERE Фамилия LIKE 'А%';
-# -- также нужно удалить связанные записи из таблицы АвторКниги
-
-# DELETE FROM АвторКниги WHERE КодАвтора IN (SELECT КодАвтора FROM Авторы WHERE Фамилия LIKE 'А%');
-
-# DELETE FROM АвторКниги WHERE КодКниги IN (SELECT КодКниги FROM Книги WHERE КодИздательства IN
-# (SELECT КодИздательства FROM Издательства WHERE Город = 'Москва'));
-
-# DELETE FROM Книги WHERE Код IN (SELECT КодКниги FROM АвторКниги JOIN
-# Авторы ON АвторКниги.КодАвтора = Авторы.КодАвтора WHERE Авторы.Фамилия LIKE 'П%');
-
-# DELETE FROM Книги WHERE КодИздательства IN (SELECT КодИздательства FROM Издательства WHERE Название LIKE 'Н%');
-
-# DELETE FROM АвторКниги WHERE КодКниги IN (SELECT Код FROM Книги WHERE КодИздательства IN
-# (SELECT КодИздательства FROM Издательства WHERE Название LIKE 'Н%'));
+#     cur.execute("""UPDATE books SET name = 'Новое название', id_section = (SELECT id_section FROM sections
+#     WHERE section = 'Фантастика') WHERE id_books IN (SELECT id_books FROM author_book JOIN
+#     authors ON author_book.id_author = authors.id_author WHERE name = 'Александр' AND surname = 'Петров')""")
+#
+#     cur.execute("UPDATE books SET name = 'Старое название' WHERE year_publishing BETWEEN 2010 AND 2015")
+#
+#     cur.execute("""UPDATE books SET storage = 'Библиотека №2' WHERE id_books IN (SELECT id_books FROM author_book
+#     WHERE id_author = 7)""")
+#
+#     cur.execute("""UPDATE publishing SET city = (SELECT city FROM books
+#     WHERE books.id_publish = publishing.id_publish)""")
+#
+#     cur.execute("""UPDATE author_book SET id_author = (SELECT id_author FROM authors
+#     WHERE authors.id_author = author_book.id_author)""")
+#
+#     cur.execute("""UPDATE books SET id_section = (SELECT id_section FROM sections
+#     WHERE sections.section = books.id_section)""")
+#
+#     cur.execute("""UPDATE books SET year_publishing = 2022
+#                 WHERE id_books IN (SELECT id_book FROM author_book WHERE year_publishing = 2021)""")
+#
+#     cur.execute("""UPDATE books SET storage = 'Книжный шкаф 1'
+#                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE publish = 'Издательство А')""")
+#
+#     cur.execute("""UPDATE authors SET surname = 'Новая фамилия'
+#                 WHERE id_author IN (SELECT id_author FROM author_book WHERE id_author = 1)""")
+#
+#     cur.execute("""UPDATE books SET year_publishing = 2022
+#                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Москва')""")
+#
+#     cur.execute("""UPDATE books SET storage = 'Книжный шкаф 1' WHERE id_books IN (SELECT id_book FROM author_book
+#     WHERE id_author IN (SELECT id_author FROM authors WHERE surname = 'Иванов'))""")
+#
+#     cur.execute("""UPDATE books SET year_publishing = 2023 WHERE id_books IN (SELECT id_book FROM author_book
+#     WHERE id_author IN (SELECT id_author FROM authors WHERE name = 'Анна'))""")
+#
+#     cur.execute("""UPDATE books SET id_section = (SELECT id_section FROM sections WHERE section = 'Классика')
+#                 WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Санкт-Петербург')""")
+#
+#     cur.execute("""UPDATE books SET year_publishing = 2024 WHERE id_books IN (SELECT id_book FROM author_book
+#                 WHERE id_author IN (SELECT id_author FROM authors WHERE surname = 'Петров'))""")
+#
+#
+# # DELETES
+# with sq.connect('Library.sqlite') as con:
+#     cur = con.cursor()
+#
+#     # 1. Удалить все записи из таблицы Книги, у которых Раздел = 'Фантастика':
+#     cur.execute("DELETE FROM books WHERE id_section = (SELECT id_section FROM sections WHERE section = 'Фантастика')")
+#
+#     # 2. Удалить все записи из таблицы Книги, у которых ГодИздания меньше 2000:
+#     cur.execute("DELETE FROM books WHERE year_publishing < 2000")
+#
+#     # 3. Удалить все записи из таблицы АвторКниги, у которых КодАвтора равен 1:
+#     cur.execute("DELETE FROM author_book WHERE id_author = 1")
+#
+#     # 4. Удалить все записи из таблицы Авторы, у которых Фамилия начинается с буквы "А":
+#     cur.execute("DELETE FROM authors WHERE surname LIKE 'А%'")
+#
+#     # 5. Удалить все записи из таблицы Издательства, у которых Город равен "Москва":
+#     cur.execute("DELETE FROM publishing WHERE city = 'Москва'")
+#
+#     # 6. Удалить все записи из таблицы АвторКниги, у которых КодКниги равен 10:
+#     cur.execute("DELETE FROM author_book WHERE id_book = 10")
+#
+#     # 7. Удалить все записи из таблицы Книги, у которых МестоХранения равно "Склад":
+#     cur.execute("DELETE FROM books WHERE storage = 'Склад'")
+#
+#     # 8. Удалить все записи из таблицы Разделы, у которых Раздел равен "Детективы":
+#     cur.execute("DELETE FROM sections WHERE section = 'Детективы'")
+#
+#     # 9. Удалить все записи из таблицы АвторКниги, у которых КодАвтора равен 2:
+#     cur.execute("DELETE FROM author_book WHERE id_author = 2")
+#
+#     # 10. Удалить все записи из таблицы Издательства, у которых Издательство равно "O'Reilly Media":
+#     cur.execute("DELETE FROM publishing WHERE publish = 'O''Reilly Media'")
+#
+#     # 11. Удалить все записи из таблицы Книги, у которых Название содержит слово "Война":
+#     cur.execute("DELETE FROM books WHERE name LIKE '%Война%'")
+#
+#     # 12. Удалить все книги, которые были изданы до 2000 года включительно и хранятся в "Библиотека №1".
+#     cur.execute("DELETE FROM books WHERE year_publishing <= 2000 AND storage = 'Библиотека №1'")
+#
+#     # 13. Удалить всех авторов, у которых нет книг в таблице Книги.
+#     cur.execute("DELETE FROM authors WHERE id_author NOT IN (SELECT DISTINCT id_author FROM author_book)")
+#
+#     # 14. Удалить все книги, изданные в городе "Москва", из таблицы "Книги".
+#     cur.execute("DELETE FROM books WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Москва')")
+#
+#     # 15. Удалить всех авторов, чьи фамилии начинаются на букву "А" из таблицы "authors" и соответствующие записи из
+#     # таблицы "author_book".
+#     cur.execute("DELETE FROM authors WHERE surname LIKE 'А%' AND id_author IN (SELECT id_author FROM author_book)")
+#     cur.execute("DELETE FROM author_book WHERE id_author IN (SELECT id_author FROM authors WHERE surname LIKE 'А%')")
+#
+#     # 16. Удалить все записи из таблицы "author_book", связанные с книгами, изданными в городе "Москва".
+#     cur.execute("""DELETE FROM author_book WHERE id_book IN (SELECT id_books FROM books
+#     WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city = 'Москва'))""")
+#
+#     # 17. Удалить все книги из таблицы "books", которые были написаны авторами с фамилиями, начинающимися на букву "П"
+#     cur.execute("""DELETE FROM books WHERE id_books IN (SELECT id_book FROM author_book
+#     WHERE id_author IN (SELECT id_author FROM authors WHERE surname LIKE 'П%'))""")
+#
+#     # 18. Удалить все книги из таблицы "books", которые были изданы в городах с названиями, начинающимися на букву "Н"
+#     cur.execute("DELETE FROM books WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city LIKE 'Н%')")
+#
+#     # 19. Удалить все записи из таблицы "author_book", связанные с книгами, изданными в городах, название которых
+#     # начинается на букву
+#     cur.execute("""DELETE FROM author_book WHERE id_book IN ( SELECT id_books FROM books JOIN
+#     publishing ON books.id_publish = publishing.id_publish WHERE publishing.city LIKE 'Н%')""")

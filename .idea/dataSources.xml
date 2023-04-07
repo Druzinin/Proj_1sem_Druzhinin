@@ -8,35 +8,8 @@
       <jdbc-url>jdbc:sqlite:identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="saper" uuid="8a018a78-bf5d-483e-8331-c18e6b6ca331">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\saper.sqlite</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/sqlite-jdbc-3.40.1.jar</url>
-        </library>
-      </libraries>
-    </data-source>
-    <data-source source="LOCAL" name="ЗАРПЛАТА" uuid="e9a1423f-7437-4508-a6c6-04645092321f">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\PZ_15\ЗАРПЛАТА.sqlite</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-      <libraries>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/sqlite-jdbc-3.40.1.jar</url>
-        </library>
-        <library>
-          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/sqlite-jdbc-3.40.1.jar</url>
-        </library>
-      </libraries>
-    </data-source>
     <data-source source="LOCAL" name="Library" uuid="585f7b43-73a7-4fbe-80f9-425c0bcd81a0">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>60cce6d7-96e6-4baf-98b4-8804054c0beb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\PZ_15\Library.sqlite</jdbc-url>
@@ -47,19 +20,17 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="library" uuid="7f342573-1799-4e5b-b30c-5e84d86e565f">
+    <data-source source="LOCAL" name="tourist" uuid="ae78b49f-8511-455d-aed2-771f29919d21">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\library.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\PZ_15\tourist.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="Library [2]" uuid="88b4c512-38a2-4cf2-97cb-1102d1f701e8">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\PZ_13\Library.sqlite</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
+        </library>
+      </libraries>
     </data-source>
   </component>
 </project>

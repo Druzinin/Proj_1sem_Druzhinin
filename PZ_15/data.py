@@ -6,22 +6,22 @@ info_authors = [
     ('Chekhov', 'Anton'),
     ('Goncharov', 'Ivan'),
     ('Lermontov', 'Mikhail'),
-    ('Turgenev', 'Ivan'),
+    ('Иванов', 'Петр'),
     ('Bulgakov', 'Mikhail'),
     ('Pasternak', 'Boris')
 ]
 
 info_books = [
-    ('War and Peace', 1869, 'Library', 'Fiction', 'Penguin Random House'),
-    ('Crime and Punishment', 1866, 'Library', 'Fiction', 'Hachette Livre'),
-    ('Anna Karenina', 1878, 'Library', 'Fiction', 'HarperCollins'),
-    ('Dead Souls', 1842, 'Library', 'Fiction', 'Wolters Kluwer'),
-    ('The Cherry Orchard', 1904, 'Library', 'Drama', 'Oxford University Press'),
-    ('The Brothers Karamazov', 1880, 'Library', 'Fiction', 'Cambridge University Press'),
-    ('Doctor Zhivago', 1957, 'Library', 'Fiction', 'Bloomsbury Publishing'),
-    ('Fathers and Sons', 1862, 'Library', 'Fiction', 'Pearson Education'),
-    ('Master and Margarita', 1967, 'Library', 'Fiction', 'Cengage Learning'),
-    ('The Queen of Spades', 1834, 'Library', 'Mystery', 'Elsevier')
+    ('War and Peace', 1869, 'Library', 1, 1),
+    ('Crime and Punishment', 1866, 'Library', 1, 2),
+    ('Anna Karenina', 1878, 'Library', 1, 3),
+    ('Dead Souls', 1842, 'Library', 1, 4),
+    ('The Cherry Orchard', 1904, 'Library', 5, 5),
+    ('The Brothers Karamazov', 1880, 'Library', 1, 6),
+    ('Doctor Zhivago', 1957, 'Library', 1, 7),
+    ('Fathers and Sons', 1862, 'Library', 1, 8),
+    ('Master and Margarita', 1967, 'Library', 1, 9),
+    ('The Queen of Spades', 1834, 'Library', 8, 10)
 ]
 
 info_sections = [
@@ -39,7 +39,7 @@ info_sections = [
 
 info_publishing = [
     ('Penguin Random House', 'New York'),
-    ('Hachette Livre', 'Paris'),
+    ("O'Reilly Media", 'Paris'),
     ('HarperCollins', 'London'),
     ('Wolters Kluwer', 'Amsterdam'),
     ('Oxford University Press', 'Oxford'),
@@ -63,7 +63,7 @@ info_author_book = [
     (6, 3),
     (6, 6),
     (7, 10),
-    (8, 9),
+    (8, 8),
     (9, 9),
     (9, 10),
     (10, 3),
