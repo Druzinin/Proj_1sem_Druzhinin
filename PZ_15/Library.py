@@ -243,6 +243,6 @@ with sq.connect('Library.sqlite') as con:
 #     cur.execute("DELETE FROM books WHERE id_publish IN (SELECT id_publish FROM publishing WHERE city LIKE 'Н%')")
 #
 #     # 19. Удалить все записи из таблицы "author_book", связанные с книгами, изданными в городах, название которых
-#     # начинается на букву
+#     # начинается на букву "Н"
 #     cur.execute("""DELETE FROM author_book WHERE id_book IN ( SELECT id_books FROM books JOIN
 #     publishing ON books.id_publish = publishing.id_publish WHERE publishing.city LIKE 'Н%')""")
