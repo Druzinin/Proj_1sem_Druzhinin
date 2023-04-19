@@ -1,14 +1,14 @@
 info_authors = [
     ('Dostoevsky', 'Fyodor'),
+    ('Иванов', 'Петр'),
     ('Tolstoy', 'Leo'),
     ('Pushkin', 'Alexander'),
     ('Gogol', 'Nikolai'),
+    ('Петров', 'Ivan'),
+    ('Иванов', 'Mikhail'),
     ('Петров', 'Александр'),
-    ('Goncharov', 'Ivan'),
-    ('Lermontov', 'Mikhail'),
-    ('Иванов', 'Петр'),
-    ('Bulgakov', 'Mikhail'),
-    ('APasternak', 'Boris')
+    ('APasternak', 'Boris'),
+    ('Иванова', 'Анна')
 ]
 
 info_books = [
@@ -31,7 +31,7 @@ info_sections = [
     ('Poetry',),
     ('Drama',),
     ('Romance',),
-    ('Thriller',),
+    ('Классика',),
     ('Детективы',),
     ('Фантастика',),
     ('Biography',)
@@ -41,7 +41,7 @@ info_publishing = [
     ('Penguin Random House', 'New York'),
     ("O'Reilly Media", 'Paris'),
     ('HarperCollins', 'London'),
-    ('Wolters Kluwer', 'Amsterdam'),
+    ('Wolters Kluwer', 'Санкт-Петербург'),
     ('Oxford University Press', 'Oxford'),
     ('Cambridge University Press', 'Cambridge'),
     ('Bloomsbury Publishing', 'Нижний Новгород'),
