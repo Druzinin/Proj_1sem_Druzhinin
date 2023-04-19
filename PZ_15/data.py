@@ -21,7 +21,7 @@ info_books = [
     ('Doctor Zhivago', 2010, 'Library', 7, 7),
     ('Fathers and Sons', 2013, 'Склад', 8, 8),
     ('Master and Margarita', 1880, 'Библиотека №1', 9, 9),
-    ('The Queen of Spades', 1834, 'Library', 10, 10)
+    ('The Queen of Spades', 1842, 'Library', 10, 10)
 ]
 
 info_sections = [
