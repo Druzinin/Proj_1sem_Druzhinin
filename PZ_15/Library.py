@@ -91,7 +91,7 @@ with sq.connect('Library.sqlite') as con:
 #
 #     print('\n7.')  # Получить список всех книг заданного автора, отсортированных по году издания.
 #     for row in cur.execute("""SELECT books.name, year_publish FROM books JOIN author_book USING (id_book)
-#     JOIN authors USING (id_author) WHERE authors.surname = ? AND authors.name = ? ORDER BY year_publish""",
+#     JOIN authors USING (id_author) WHERE surname = ? AND authors.name = ? ORDER BY year_publish""",
 #                            ('Иванов', 'Петр')):
 #         print(*row)
 #
@@ -100,8 +100,8 @@ with sq.connect('Library.sqlite') as con:
 #         print(*row)
 #
 #     print('\n9.')  # Получить список всех авторов, написавших книги для заданного издательства.
-#     for row in cur.execute("""SELECT authors.surname, authors.name FROM authors JOIN author_book USING (id_author)
-#     JOIN books USING (id_book) JOIN publishing USING (id_publish) WHERE publishing.publish = ?""", ('Elsevier',)):
+#     for row in cur.execute("""SELECT surname, authors.name FROM authors JOIN author_book USING (id_author)
+#     JOIN books USING (id_book) JOIN publishing USING (id_publish) WHERE publish = ?""", ('Elsevier',)):
 #         print(*row)
 #
 #     print('\n10.')  # Получить список всех книг, в названии которых есть заданное слово.
@@ -213,7 +213,7 @@ with sq.connect('Library.sqlite') as con:
 #     cur = con.cursor()
 #
 #     # 1. Удалить все записи из таблицы Книги, у которых Раздел = 'Фантастика':
-#     cur.execute("DELETE FROM books WHERE id_section = (SELECT id_section FROM sections WHERE section = 'Фантастика')")
+#     cur.execute("DELETE FROM books WHERE id_section IN (SELECT id_section FROM sections WHERE section='Фантастика')")
 #     print(*cur.execute("SELECT section FROM books JOIN sections USING (id_section)"))
 #
 #     # 2. Удалить все записи из таблицы Книги, у которых ГодИздания меньше 2000:
