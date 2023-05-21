@@ -9,7 +9,7 @@
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="Library" uuid="585f7b43-73a7-4fbe-80f9-425c0bcd81a0">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>60cce6d7-96e6-4baf-98b4-8804054c0beb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\PZ_15\Library.sqlite</jdbc-url>
@@ -21,10 +21,34 @@
       </libraries>
     </data-source>
     <data-source source="LOCAL" name="tourist" uuid="8f8f0bb3-d7c4-4aef-bc63-d9a91b01164d">
-      <driver-ref>09b49645-3369-419f-9799-2f768836b0d6</driver-ref>
+      <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\tourist.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="Wholesale_base" uuid="34782a18-b90b-4696-9fed-1fda432db0e4">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\Wholesale_base.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
+        </library>
+      </libraries>
+    </data-source>
+    <data-source source="LOCAL" name="Gruber" uuid="4ad9fcd6-f44c-471a-ba0b-b83854d3f216">
+      <driver-ref>c9d4a0d5-30f8-4512-b93e-585e654ddec5</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\Proj_1sem_Druzhinin\Gruber.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
