@@ -7,8 +7,7 @@ class Student:
         self.grades = grades
 
     def gpa(self):
-        lst = self.grades
-        return sum(lst) / len(lst) if lst else 0.0
+        return sum(lst) / len(lst) if (lst := self.grades) else 0.0
 
     def is_excellent(self):
         return 'Отличник' if set(self.grades) == {5} else 'Не отличник'
